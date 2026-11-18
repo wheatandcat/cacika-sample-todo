@@ -34,3 +34,8 @@ li {
   background: #fff;
   border-bottom: 1px solid #d0d7de;
 }
+
+li.done span {
+  color: #8c959f;
+  text-decoration: line-through;
+}
