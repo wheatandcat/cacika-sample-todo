@@ -22,7 +22,14 @@ function render() {
     const title = document.createElement("span");
     title.textContent = todo.title;
 
-    li.append(checkbox, title);
+    const remove = document.createElement("button");
+    remove.textContent = "削除";
+    remove.addEventListener("click", () => {
+      todos = todos.filter((t) => t.id !== todo.id);
+      render();
+    });
+
+    li.append(checkbox, title, remove);
     list.appendChild(li);
   }
   const remaining = todos.filter((todo) => !todo.done).length;

@@ -39,3 +39,7 @@ li.done span {
   color: #8c959f;
   text-decoration: line-through;
 }
+
+li span {
+  flex: 1;
+}
