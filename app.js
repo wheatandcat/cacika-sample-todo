@@ -18,10 +18,17 @@ function save() {
 }
 
 let todos = load();
+let filter = "all";
+
+const filters = {
+  all: () => true,
+  active: (todo) => !todo.done,
+  done: (todo) => todo.done,
+};
 
 function render() {
   list.innerHTML = "";
-  for (const todo of todos) {
+  for (const todo of todos.filter(filters[filter])) {
     const li = document.createElement("li");
     li.classList.toggle("done", todo.done);
 
@@ -30,7 +37,17 @@ function render() {
     checkbox.checked = todo.done;
     checkbox.addEventListener("change", () => {
       todo.done = checkbox.checked;
-      render();
+      document.querySelectorAll("#todo-filter button").forEach((button) => {
+  button.addEventListener("click", () => {
+    filter = button.dataset.filter;
+    document
+      .querySelectorAll("#todo-filter button")
+      .forEach((b) => b.classList.toggle("active", b === button));
+    render();
+  });
+});
+
+render();
     });
 
     const title = document.createElement("span");
@@ -41,7 +58,17 @@ function render() {
     remove.addEventListener("click", () => {
       if (!confirm(`「${todo.title}」を削除しますか？`)) return;
       todos = todos.filter((t) => t.id !== todo.id);
-      render();
+      document.querySelectorAll("#todo-filter button").forEach((button) => {
+  button.addEventListener("click", () => {
+    filter = button.dataset.filter;
+    document
+      .querySelectorAll("#todo-filter button")
+      .forEach((b) => b.classList.toggle("active", b === button));
+    render();
+  });
+});
+
+render();
     });
 
     li.append(checkbox, title, remove);
@@ -58,7 +85,27 @@ form.addEventListener("submit", (event) => {
   if (!title) return;
   todos.push({ id: Date.now(), title, done: false });
   input.value = "";
-  render();
+  document.querySelectorAll("#todo-filter button").forEach((button) => {
+  button.addEventListener("click", () => {
+    filter = button.dataset.filter;
+    document
+      .querySelectorAll("#todo-filter button")
+      .forEach((b) => b.classList.toggle("active", b === button));
+    render();
+  });
+});
+
+render();
+});
+
+document.querySelectorAll("#todo-filter button").forEach((button) => {
+  button.addEventListener("click", () => {
+    filter = button.dataset.filter;
+    document
+      .querySelectorAll("#todo-filter button")
+      .forEach((b) => b.classList.toggle("active", b === button));
+    render();
+  });
 });
 
 render();
