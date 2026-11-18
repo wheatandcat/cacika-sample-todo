@@ -25,6 +25,7 @@ function render() {
     const remove = document.createElement("button");
     remove.textContent = "削除";
     remove.addEventListener("click", () => {
+      if (!confirm(`「${todo.title}」を削除しますか？`)) return;
       todos = todos.filter((t) => t.id !== todo.id);
       render();
     });
