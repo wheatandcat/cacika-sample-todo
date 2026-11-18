@@ -3,7 +3,21 @@ const input = document.getElementById("todo-input");
 const list = document.getElementById("todo-list");
 const count = document.getElementById("todo-count");
 
-let todos = [];
+const STORAGE_KEY = "cacika-sample-todos";
+
+function load() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) ?? [];
+  } catch {
+    return [];
+  }
+}
+
+function save() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+}
+
+let todos = load();
 
 function render() {
   list.innerHTML = "";
@@ -35,6 +49,7 @@ function render() {
   }
   const remaining = todos.filter((todo) => !todo.done).length;
   count.textContent = `残り ${remaining} 件`;
+  save();
 }
 
 form.addEventListener("submit", (event) => {
