@@ -9,7 +9,20 @@ function render() {
   list.innerHTML = "";
   for (const todo of todos) {
     const li = document.createElement("li");
-    li.textContent = todo.title;
+    li.classList.toggle("done", todo.done);
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = todo.done;
+    checkbox.addEventListener("change", () => {
+      todo.done = checkbox.checked;
+      render();
+    });
+
+    const title = document.createElement("span");
+    title.textContent = todo.title;
+
+    li.append(checkbox, title);
     list.appendChild(li);
   }
   const remaining = todos.filter((todo) => !todo.done).length;
