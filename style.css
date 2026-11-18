@@ -43,3 +43,13 @@ li.done span {
 li span {
   flex: 1;
 }
+
+#todo-filter {
+  display: flex;
+  gap: 4px;
+  margin-top: 16px;
+}
+
+#todo-filter button.active {
+  font-weight: bold;
+}
