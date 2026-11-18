@@ -37,17 +37,7 @@ function render() {
     checkbox.checked = todo.done;
     checkbox.addEventListener("change", () => {
       todo.done = checkbox.checked;
-      document.querySelectorAll("#todo-filter button").forEach((button) => {
-  button.addEventListener("click", () => {
-    filter = button.dataset.filter;
-    document
-      .querySelectorAll("#todo-filter button")
-      .forEach((b) => b.classList.toggle("active", b === button));
-    render();
-  });
-});
-
-render();
+      render();
     });
 
     const title = document.createElement("span");
@@ -58,17 +48,7 @@ render();
     remove.addEventListener("click", () => {
       if (!confirm(`「${todo.title}」を削除しますか？`)) return;
       todos = todos.filter((t) => t.id !== todo.id);
-      document.querySelectorAll("#todo-filter button").forEach((button) => {
-  button.addEventListener("click", () => {
-    filter = button.dataset.filter;
-    document
-      .querySelectorAll("#todo-filter button")
-      .forEach((b) => b.classList.toggle("active", b === button));
-    render();
-  });
-});
-
-render();
+      render();
     });
 
     li.append(checkbox, title, remove);
@@ -85,17 +65,7 @@ form.addEventListener("submit", (event) => {
   if (!title) return;
   todos.push({ id: Date.now(), title, done: false });
   input.value = "";
-  document.querySelectorAll("#todo-filter button").forEach((button) => {
-  button.addEventListener("click", () => {
-    filter = button.dataset.filter;
-    document
-      .querySelectorAll("#todo-filter button")
-      .forEach((b) => b.classList.toggle("active", b === button));
-    render();
-  });
-});
-
-render();
+  render();
 });
 
 document.querySelectorAll("#todo-filter button").forEach((button) => {
