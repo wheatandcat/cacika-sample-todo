@@ -63,7 +63,8 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   const title = input.value.trim();
   if (!title) return;
-  todos.push({ id: Date.now(), title, done: false });
+  const tags = [...title.matchAll(/#(\S+)/g)].map((m) => m[1]);
+  todos.push({ id: Date.now(), title, tags, done: false });
   input.value = "";
   render();
 });
